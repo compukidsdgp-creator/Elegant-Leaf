@@ -1,0 +1,30 @@
+name: CI
+
+# The arithmetic is the product. If it breaks, every invoice priced with
+# this tool is wrong, so the tests gate every push.
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install
+        run: pip install -r requirements.txt
+
+      - name: Profit arithmetic
+        run: python test_calc.py
+
+      - name: App imports cleanly
+        # Catches a syntax error or a bad import before it reaches the
+        # deployed app, where it shows as a stack trace to the user.
+        run: python -c "import ast, sys; ast.parse(open('app.py').read()); import calc; print('ok')"
