@@ -1,0 +1,13 @@
+# Theme tokens mirror the CSS in app.py so Streamlit's own widgets
+# (sliders, inputs, buttons) sit inside the same palette instead of
+# defaulting to the stock red-on-white.
+[theme]
+base = "light"
+primaryColor = "#6B3410"
+backgroundColor = "#E9EEE1"
+secondaryBackgroundColor = "#F5F8F0"
+textColor = "#1B2A1C"
+font = "sans serif"
+
+[server]
+headless = true
